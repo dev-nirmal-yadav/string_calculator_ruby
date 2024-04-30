@@ -20,5 +20,9 @@ describe StringCalculator do
       include_examples 'returns the sum of inputs', '1', 1
       include_examples 'returns the sum of inputs', '5', 5
     end
+
+    context 'when input is two numbers' do
+      include_examples 'returns the sum of inputs', '1,2', 3
+    end
   end
 end
