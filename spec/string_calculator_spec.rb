@@ -12,17 +12,9 @@ describe StringCalculator do
       end
     end
 
-    context 'when input is an empty string' do
-      include_examples 'returns the sum of inputs', '', 0
-    end
-
-    context 'when input is a single number' do
-      include_examples 'returns the sum of inputs', '1', 1
-      include_examples 'returns the sum of inputs', '5', 5
-    end
-
-    context 'when input is two numbers' do
-      include_examples 'returns the sum of inputs', '1,2', 3
-    end
+    include_examples 'returns the sum of inputs', '', 0
+    include_examples 'returns the sum of inputs', '1', 1
+    include_examples 'returns the sum of inputs', '1,2', 3
+    include_examples 'returns the sum of inputs', '1,2,3', 6
   end
 end
