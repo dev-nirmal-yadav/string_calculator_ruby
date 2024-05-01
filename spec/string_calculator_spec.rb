@@ -30,6 +30,10 @@ describe StringCalculator do
         include_examples 'returns the sum of inputs', '1,2', 3
         include_examples 'returns the sum of inputs', '1,2,3', 6
         include_examples 'returns the sum of inputs', "1\n2,3", 6
+
+        it 'ignores numbers bigger than 1000' do
+          expect(calculator.add('2,1001')).to eq(2)
+        end
       end
     end
 
