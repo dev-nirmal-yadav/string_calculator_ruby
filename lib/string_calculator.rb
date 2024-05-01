@@ -10,9 +10,10 @@ class StringCalculator
     delimiter, numbers = extract_delimiter_and_numbers(numbers)
 
     numbers_array = numbers.split(delimiter)
+    numbers_array.reject! { |num| num.to_i > 1000 }
     validate_negative_numbers(numbers_array)
 
-    numbers.split(/#{delimiter}|\n/).inject(0) { |sum, num| sum + num.to_i }
+    numbers_array.inject(0) { |sum, num| sum + num.to_i }
   end
 
   private
