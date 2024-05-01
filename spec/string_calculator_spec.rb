@@ -12,15 +12,21 @@ describe StringCalculator do
       end
     end
 
-    context 'when inputs are valid' do
-      include_examples 'returns the sum of inputs', '', 0
-      include_examples 'returns the sum of inputs', '1', 1
-      include_examples 'returns the sum of inputs', '1,2', 3
-      include_examples 'returns the sum of inputs', '1,2,3', 6
-      include_examples 'returns the sum of inputs', "1\n2,3", 6
+    context 'with default delimiter' do
+      context 'with valid input' do
+        include_examples 'returns the sum of inputs', '', 0
+        include_examples 'returns the sum of inputs', '1', 1
+        include_examples 'returns the sum of inputs', '1,2', 3
+        include_examples 'returns the sum of inputs', '1,2,3', 6
+        include_examples 'returns the sum of inputs', "1\n2,3", 6
+      end
     end
 
-    context 'when inputs are invalid' do
+    context 'with custom delimiter' do
+      include_examples 'returns the sum of inputs', "//;\n1;2", 3
+    end
+
+    context 'with invalid input' do
       it "raises error for input '1,\n'" do
         expect {
           calculator.add("1,\n")
