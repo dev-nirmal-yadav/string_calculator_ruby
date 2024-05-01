@@ -33,5 +33,13 @@ describe StringCalculator do
         }.to raise_error(described_class::InvalidInputError, "Invalid input format: '1,\n'")
       end
     end
+
+    context 'with negative numbers' do
+      it "raises error for negative number" do
+        expect {
+          calculator.add("1,-2")
+        }.to raise_error(described_class::NegativeNumberError, 'Negative numbers not allowed -2')
+      end
+    end
   end
 end
