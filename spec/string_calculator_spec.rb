@@ -5,17 +5,17 @@ require_relative '../lib/string_calculator'
 describe StringCalculator do
   subject(:calculator) { described_class.new }
 
-  describe '#add' do
+  describe '#calculate' do
     shared_examples 'returns the sum of inputs' do |numbers, result|
       it "returns #{result} for input #{numbers.inspect}" do
-        expect(calculator.add(numbers)).to eq(result)
+        expect(calculator.calculate(numbers)).to eq(result)
       end
     end
 
     shared_examples 'raises error for negative numbers' do |numbers, negative_numbers|
       it "raises error for input #{numbers.inspect}" do
         expect {
-          calculator.add(numbers)
+          calculator.calculate(numbers)
         }.to raise_error(
           described_class::NegativeNumberError,
           "Negative numbers not allowed #{negative_numbers}"
@@ -32,7 +32,7 @@ describe StringCalculator do
         include_examples 'returns the sum of inputs', "1\n2,3", 6
 
         it 'ignores numbers bigger than 1000' do
-          expect(calculator.add('2,1001')).to eq(2)
+          expect(calculator.calculate('2,1001')).to eq(2)
         end
       end
     end
@@ -44,7 +44,7 @@ describe StringCalculator do
     context 'with invalid input' do
       it "raises error for input '1,\n'" do
         expect {
-          calculator.add("1,\n")
+          calculator.calculate("1,\n")
         }.to raise_error(described_class::InvalidInputError, "Invalid input format: '1,\n'")
       end
     end
@@ -53,6 +53,14 @@ describe StringCalculator do
       include_examples 'raises error for negative numbers', '1,-2', '-2'
 
       include_examples 'raises error for negative numbers', '1,-2,-3', '-2,-3'
+    end
+
+    context 'when the custom delimiter is *' do
+      let(:numbers) { "//*\n2*4" }
+
+      it "returns product of input numbers" do
+        expect(calculator.calculate(numbers)).to eq(8)
+      end
     end
   end
 end
